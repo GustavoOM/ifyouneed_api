@@ -1,10 +1,10 @@
+import 'dotenv/config'
 import "reflect-metadata";
 import {createConnection} from "typeorm"
 import * as express from "express";
 import routes from "./routes";
 
 import * as cors from 'cors';
-import 'dotenv/config'
 
 const ServerPort = process.env.PORT || 3333
 
