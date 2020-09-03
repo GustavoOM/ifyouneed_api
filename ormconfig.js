@@ -1,3 +1,9 @@
+const dotevnt = require('dotenv')
+
+dotevnt.config({
+   path: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.production'
+})
+
 module.exports = {
    "type": "postgres",
    "host": process.env.DBHOST,
@@ -10,15 +16,7 @@ module.exports = {
    "entities": [
       process.env.ENTITIES
    ],
-   "migrations": [
-      process.env.MIGRATIONS
-   ],
-   "subscribers": [
-      process.env.SUBSCRIBER
-   ],
    "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
+      "entitiesDir": process.env.ENTITIESDIR,
    }
 }

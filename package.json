@@ -20,8 +20,8 @@
       "typeorm": "0.2.25"
    },
    "scripts": {
-      "build": "tsc",
-      "dev": "tsnd --transpile-only --ignore-watch node_modules --cls --respawn src/index.ts",
-      "start": "node build/src/index.js"
+      "build": "NODE_ENV=production tsc --target ES5 --experimentalDecorators --emitDecoratorMetadata",
+      "dev": "NODE_ENV=dev tsnd --transpile-only --ignore-watch node_modules --cls --respawn src/index.ts",
+      "start": "node build/index.js"
    }
 }
