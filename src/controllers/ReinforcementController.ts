@@ -1,7 +1,8 @@
 import {getRepository} from "typeorm";
 import {Request, Response} from "express";
 import { Reinforcement } from "../entities/Reinforcement";
-import convertHourToMinutes from "../utils/convertHourToMinutes"
+import convertHourToMinutes from "../services/convertHourToMinutes"
+import { User } from "../entities/User";
 
 export default class ReinforcementController{
     async index({query}:Request, response:Response){
@@ -9,7 +10,13 @@ export default class ReinforcementController{
             const options = {where: {...query}}
             if (!query)
                 delete options.where
-            const reinforcements = await getRepository(Reinforcement).find(options)
+            //const reinforcements = await getRepository(Reinforcement).find(options)
+            
+            //Query de select especifico
+            //const reinforcements = await getRepository(Reinforcement).createQueryBuilder("reinforcement").select(["reinforcement.subject", "reinforcement.course"]).getMany()
+            
+            const reinforcements = await getRepository(Reinforcement).createQueryBuilder("reinforcement").leftJoinAndSelect("reinforcement.user_", "user").getMany()
+            
             return response.json(reinforcements)
         }catch (err){
             return response.status(400).json({

@@ -1,6 +1,7 @@
 import {getRepository} from "typeorm";
 import {Request, Response} from "express";
 import {User} from "../entities/User";
+import { validate } from "class-validator"
 
 interface IUserProps{
     name: string
@@ -33,9 +34,19 @@ export default class UserContoller{
     async create(request:Request, response:Response){
         const data:IUserProps = request.body
         try{
-            await getRepository(User).save(data)
+            const repo = getRepository(User)
+
+            const user = repo.create(data)
+
+            const errors = await validate(user)
+
+            if(errors.length === 0){
+                await repo.save(data)
+                return response.status(201).send()
+            }else{
+                return response.status(400).json(errors)
+            }
         
-            return response.status(201).send()
     
         }catch (err){
             return response.status(400).json({

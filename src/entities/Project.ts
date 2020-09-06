@@ -2,18 +2,12 @@ import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColu
 import { User } from "./User"
 
 @Entity()
-export class Reinforcement {
+export class Project {
     @PrimaryGeneratedColumn('uuid')
-    id_reinforcement: string
+    id_project: string
 
     @Column()
-    subject: string
-
-    @Column()
-    principal_year: string
-
-    @Column()
-    course: string
+    name_project: string
     
     @Column()
     week_day: number
@@ -28,7 +22,7 @@ export class Reinforcement {
     place: string
 
     @Column()
-    reinforcement_bio: string
+    project_bio: string
 
     @CreateDateColumn()
     created_at: Date
@@ -36,7 +30,7 @@ export class Reinforcement {
     @UpdateDateColumn()
     updated_at: Date
 
-    @ManyToOne(type => User, reinforcements => Reinforcement)
+    @ManyToOne(type => User, projects => Project)
     user_: User
 
 }
