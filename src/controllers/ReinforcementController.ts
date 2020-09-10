@@ -95,4 +95,18 @@ export default class ReinforcementController{
             })
         }
     }
+
+    async indexUser(request:Request, response:Response){
+        const {id} = request.params
+        try{
+            const reinforcements = await getRepository(Reinforcement).createQueryBuilder("reinforcement").leftJoinAndSelect("reinforcement.user_", "user").getMany()
+            const filteredReinforcement = reinforcements.filter(reinforcement => reinforcement.user_.id == id)
+            return response.json(filteredReinforcement)
+        }catch (err){
+            return response.status(400).json({
+                error: "Wrong query params!"
+            })
+        }
+        
+    }
 }

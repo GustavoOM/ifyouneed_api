@@ -23,12 +23,14 @@ routes.get("/reinforcements", reinforcementController.index)
 routes.get("/reinforcements/:id", reinforcementController.find)
 routes.put("/reinforcements/:id", reinforcementController.update)
 routes.delete("/reinforcements/:id", reinforcementController.delete)
+routes.get("/reinforcementsuser/:id", reinforcementController.indexUser)
 
 routes.post("/projects", projectController.create)
 routes.get("/projects", projectController.index)
 routes.get("/projects/:id", projectController.find)
 routes.put("/projects/:id", projectController.update)
 routes.delete("/projects/:id", projectController.delete)
+routes.get("/projectsuser/:id", projectController.indexUser)
 
 routes.get("/subjects", subjectController.index)
 

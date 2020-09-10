@@ -90,4 +90,18 @@ export default class ProjectController{
             })
         }
     }
+
+    async indexUser(request:Request, response:Response){
+        const {id} = request.params
+        try{
+            const projects = await getRepository(Project).createQueryBuilder("project").leftJoinAndSelect("project.user_", "user").getMany()
+            const filteredProjects = projects.filter(project => project.user_.id == id)
+            return response.json(filteredProjects)
+        }catch (err){
+            return response.status(400).json({
+                error: "Wrong query params!"
+            })
+        }
+        
+    }
 }
