@@ -11,7 +11,7 @@ export default class ProjectController{
                 delete options.where
             
             //const projects = await getRepository(Project).find(options)
-            const projects = await getRepository(Project).createQueryBuilder("project").leftJoinAndSelect("project.user_", "user").getMany()
+            const projects = await getRepository(Project).createQueryBuilder("project").leftJoinAndSelect("project.user_", "user").orderBy("name_project").getMany()
             return response.json(projects)
         }catch (err){
             return response.status(400).json({

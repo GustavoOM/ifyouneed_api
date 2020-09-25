@@ -15,7 +15,7 @@ export default class ReinforcementController{
             //Query de select especifico
             //const reinforcements = await getRepository(Reinforcement).createQueryBuilder("reinforcement").select(["reinforcement.subject", "reinforcement.course"]).getMany()
             
-            const reinforcements = await getRepository(Reinforcement).createQueryBuilder("reinforcement").leftJoinAndSelect("reinforcement.user_", "user").getMany()
+            const reinforcements = await getRepository(Reinforcement).createQueryBuilder("reinforcement").leftJoinAndSelect("reinforcement.user_", "user").orderBy("subject").getMany()
             
             return response.json(reinforcements)
         }catch (err){
